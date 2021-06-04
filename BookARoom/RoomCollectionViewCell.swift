@@ -63,11 +63,19 @@ class RoomCollectionViewCell: UICollectionViewCell {
     func configure(for viewModel: RoomCellViewModel) {
         self.viewModel = viewModel
         nameLabel.text = viewModel.name
-        spotsLabel.text = viewModel.spotsLeft
         bookButton.setTitle(viewModel.buttonTitle, for: .normal)
         bookButton.setTitle(viewModel.buttonTitle, for: .disabled)
         bookButton.isEnabled = viewModel.buttonEnabled
         bookButton.backgroundColor = viewModel.buttonBackgroundColor
+        
+        bookButton.addTarget(self, action: #selector(bookRoom), for: .touchUpInside)
+        
+        viewModel
+            .$spotsLeft
+            .sink { [weak self] spotsLeft in
+                self?.spotsLabel.text = spotsLeft
+            }
+            .store(in: &cancellables)
         
         viewModel
             .$thumbnailImage
@@ -75,5 +83,10 @@ class RoomCollectionViewCell: UICollectionViewCell {
                 self?.thumbnailImageView.image = image
             }
             .store(in: &cancellables)
+    }
+    
+    @objc
+    private func bookRoom() {
+        self.viewModel?.bookRoom()
     }
 }
