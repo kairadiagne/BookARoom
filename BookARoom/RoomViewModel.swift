@@ -23,6 +23,7 @@ class RoomViewModel {
                 type: RoomResponse.self,
                 decoder: JSONDecoder()
             )
+            .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
             .sink(receiveCompletion: { completion in
                 switch completion {

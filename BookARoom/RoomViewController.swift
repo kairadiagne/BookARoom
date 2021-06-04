@@ -13,8 +13,12 @@ class RoomViewController: UIViewController {
     
     private var viewModel: RoomViewModel
     
-    private lazy var diffableDataSource = UICollectionViewDiffableDataSource<Section, Room>(collectionView: collectionView) { collectionView, IndexPath, room in
-        return UICollectionViewCell()
+    private lazy var diffableDataSource = UICollectionViewDiffableDataSource<Section, Room>(collectionView: collectionView) { collectionView, indexPath, room in
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RoomCollectionViewCell", for: indexPath)
+        if let roomCell = cell as? RoomCollectionViewCell {
+            roomCell.configure(for: room)
+        }
+        return cell
     }
     
     init(with viewModel: RoomViewModel = RoomViewModel()) {
@@ -22,6 +26,8 @@ class RoomViewController: UIViewController {
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        configureCollectionView()
+        view.backgroundColor = .white
         viewModel
             .$rooms
             .sink(receiveValue: createSnapshot(with:))
@@ -37,8 +43,19 @@ class RoomViewController: UIViewController {
         viewModel.loadRooms()
     }
     
-    func configure() {
-        
+    private func configureCollectionView() {
+        collectionView.register(RoomCollectionViewCell.self, forCellWithReuseIdentifier: "RoomCollectionViewCell")
+        collectionView.backgroundColor = .clear
+        view.addSubview(collectionView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate(
+            [
+                collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+                collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+                collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            ]
+        )
     }
     
     private func createSnapshot(with rooms: [Room]) {
@@ -55,10 +72,11 @@ class RoomViewController: UIViewController {
         )
         
         let roomItem = NSCollectionLayoutItem(layoutSize: roomSize)
+        roomItem.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4)
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .fractionalWidth(1.0)
+            heightDimension: .fractionalWidth(2/3)
         )
         
         let group = NSCollectionLayoutGroup.horizontal(

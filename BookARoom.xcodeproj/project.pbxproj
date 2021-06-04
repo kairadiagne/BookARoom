@@ -18,6 +18,7 @@
 		50C13F49266A157F00C5EE1A /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C13F48266A157F00C5EE1A /* Room.swift */; };
 		50C13F4B266A17D700C5EE1A /* RoomService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C13F4A266A17D700C5EE1A /* RoomService.swift */; };
 		50C13F4D266A1EDF00C5EE1A /* RoomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C13F4C266A1EDF00C5EE1A /* RoomCollectionViewCell.swift */; };
+		50C2DEA1266A265A00489E6C /* RoomCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C2DEA0266A265A00489E6C /* RoomCellViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		50C13F48266A157F00C5EE1A /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		50C13F4A266A17D700C5EE1A /* RoomService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomService.swift; sourceTree = "<group>"; };
 		50C13F4C266A1EDF00C5EE1A /* RoomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCollectionViewCell.swift; sourceTree = "<group>"; };
+		50C2DEA0266A265A00489E6C /* RoomCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCellViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				50C13F4A266A17D700C5EE1A /* RoomService.swift */,
 				50C13F48266A157F00C5EE1A /* Room.swift */,
 				50C13F4C266A1EDF00C5EE1A /* RoomCollectionViewCell.swift */,
+				50C2DEA0266A265A00489E6C /* RoomCellViewModel.swift */,
 				50C13F1F266A11A300C5EE1A /* Assets.xcassets */,
 				50C13F21266A11A300C5EE1A /* LaunchScreen.storyboard */,
 				50C13F24266A11A300C5EE1A /* Info.plist */,
@@ -269,6 +272,7 @@
 				50C13F4B266A17D700C5EE1A /* RoomService.swift in Sources */,
 				50C13F1B266A11A200C5EE1A /* RoomViewController.swift in Sources */,
 				50C13F17266A11A200C5EE1A /* AppDelegate.swift in Sources */,
+				50C2DEA1266A265A00489E6C /* RoomCellViewModel.swift in Sources */,
 				50C13F19266A11A200C5EE1A /* SceneDelegate.swift in Sources */,
 				50C13F4D266A1EDF00C5EE1A /* RoomCollectionViewCell.swift in Sources */,
 				50C13F47266A155B00C5EE1A /* RoomViewModel.swift in Sources */,
