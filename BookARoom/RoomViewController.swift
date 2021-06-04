@@ -16,7 +16,7 @@ class RoomViewController: UIViewController {
     private lazy var diffableDataSource = UICollectionViewDiffableDataSource<Section, Room>(collectionView: collectionView) { collectionView, indexPath, room in
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RoomCollectionViewCell", for: indexPath)
         if let roomCell = cell as? RoomCollectionViewCell {
-            roomCell.configure(for: room)
+            roomCell.configure(for: RoomCellViewModel(with: room))
         }
         return cell
     }
@@ -36,11 +36,6 @@ class RoomViewController: UIViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        viewModel.loadRooms()
     }
     
     private func configureCollectionView() {

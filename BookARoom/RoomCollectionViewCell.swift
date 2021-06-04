@@ -1,3 +1,4 @@
+import Combine
 import UIKit
 
 class RoomCollectionViewCell: UICollectionViewCell {
@@ -7,6 +8,9 @@ class RoomCollectionViewCell: UICollectionViewCell {
     private let spotsLabel = UILabel()
     private let bookButton = UIButton()
     private let stackView = UIStackView()
+    
+    private var cancellables: Set<AnyCancellable> = []
+    private var viewModel: RoomCellViewModel?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,6 +32,9 @@ class RoomCollectionViewCell: UICollectionViewCell {
         thumbnailImageView.translatesAutoresizingMaskIntoConstraints = false
         thumbnailImageView.contentMode = .scaleAspectFill
         thumbnailImageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+        thumbnailImageView.layer.cornerRadius = 8
+        thumbnailImageView.layer.masksToBounds = true
+        
         stackView.addArrangedSubview(thumbnailImageView)
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -50,23 +57,23 @@ class RoomCollectionViewCell: UICollectionViewCell {
                 stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
             ]
         )
-
         contentView.backgroundColor = .white
     }
     
-    func configure(for room: Room) {
-        nameLabel.text = room.name
-        spotsLabel.text = "\(room.spots) spots remaining"
-        bookButton.setTitle("Book", for: .normal)
-        bookButton.setTitle("Book", for: .disabled)
-        if room.spots == 0 {
-            bookButton.isEnabled = false
-            bookButton.backgroundColor = .gray
-        } else {
-            bookButton.isEnabled = true
-            bookButton.backgroundColor = .purple
-        }
+    func configure(for viewModel: RoomCellViewModel) {
+        self.viewModel = viewModel
+        nameLabel.text = viewModel.name
+        spotsLabel.text = viewModel.spotsLeft
+        bookButton.setTitle(viewModel.buttonTitle, for: .normal)
+        bookButton.setTitle(viewModel.buttonTitle, for: .disabled)
+        bookButton.isEnabled = viewModel.buttonEnabled
+        bookButton.backgroundColor = viewModel.buttonBackgroundColor
         
-        thumbnailImageView.image = UIImage(named: "thumbnailPlaceholder")
+        viewModel
+            .$thumbnailImage
+            .sink { [weak self] image in
+                self?.thumbnailImageView.image = image
+            }
+            .store(in: &cancellables)
     }
 }
